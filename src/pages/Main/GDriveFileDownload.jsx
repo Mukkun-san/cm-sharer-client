@@ -217,7 +217,7 @@ export default function GDriveFileDownload({ user, handleAuthClick }) {
     <div>
       <div className="container bg-light w-100 h-100">
         <div className="row">
-          <div className="col-8 mx-auto">
+          <div className="col-12 col-md-8 mx-auto">
             <div className="card card-signin my-5">
               <div className="card-body">
                 {loading || file === null || !user ? (
@@ -239,7 +239,7 @@ export default function GDriveFileDownload({ user, handleAuthClick }) {
                       Type: {file.mimeType}
                     </span>
                     <br /> <br />
-                    {!(user && user.wc) ? (
+                    {!(user && user.getBasicProfile()) ? (
                       <LoginToDownload />
                     ) : (
                       <DownloadFile />
@@ -281,7 +281,7 @@ export default function GDriveFileDownload({ user, handleAuthClick }) {
                               height: "18px",
                             }}
                           >
-                            {prettyBytes(Number(driveInfo.usage))} used
+                            {/* {prettyBytes(Number(driveInfo.usage))} used */}
                           </div>
                         </div>
                       </div>

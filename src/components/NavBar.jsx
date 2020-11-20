@@ -12,12 +12,12 @@ export default function NavBar({ currentUser }) {
     window.gapi.auth2
       .getAuthInstance()
       .signIn()
-      .then(async (res) => {
+      .then(async (user) => {
         let userdata = {
-          uid: res.Ca,
-          username: res.nt.Ad,
-          email: res.nt.Wt,
-          picture: res.nt.JJ,
+          uid: user.getBasicProfile().getId(),
+          username: user.getBasicProfile().getName(),
+          email: user.getBasicProfile().getEmail(),
+          picture: user.getBasicProfile().getImageUrl(),
         };
         await axios.post(API_URL + "/users/addOne", userdata);
         window.location.reload();
@@ -65,7 +65,7 @@ export default function NavBar({ currentUser }) {
                 Contact
               </Link>
             </li>
-            {currentUser && currentUser.wc ? (
+            {currentUser && currentUser.getBasicProfile() ? (
               <>
                 <li className="nav-item ml-3">
                   <Link className="nav-link" to="/page/account">

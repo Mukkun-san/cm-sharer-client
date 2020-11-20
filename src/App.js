@@ -209,7 +209,7 @@ export default function App() {
             </Route>
             <Route exact path="/page/account">
               <NavBar currentUser={user} />
-              {user && user.Ca ? (
+              {user && user.getBasicProfile() ? (
                 <Account user={user} />
               ) : (
                 <Redirect to={{ pathname: "/" }} />
@@ -217,7 +217,7 @@ export default function App() {
             </Route>
             <Route exact path="/">
               <NavBar currentUser={user} />
-              {user && user.Ca ? (
+              {user && user.getBasicProfile() ? (
                 <Redirect to={{ pathname: "/page/account" }} />
               ) : (
                 <Home handleAuthClick={handleAuthClick} />

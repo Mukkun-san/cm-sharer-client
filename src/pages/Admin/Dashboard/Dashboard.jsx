@@ -162,8 +162,8 @@ export default function Dashboard() {
                   <div className="d-flex ml-5 mt-5">
                     <h3 className="ml-3 text-center">Generate DDL</h3>
                   </div>
-                  <div className="row m-5">
-                    <div className="col col-9">
+                  <div className="row m-sm-5">
+                    <div className="col-12 col-sm-9">
                       <div className="input-group input-group-lg">
                         <div className="input-group-prepend">
                           <span
@@ -182,13 +182,13 @@ export default function Dashboard() {
                           className="form-control"
                           aria-label="Sizing example input"
                           aria-describedby="inputGroup-sizing-lg"
-                          placeholder="Enter Drive File Link to Generate DDL"
+                          placeholder="Enter Drive or Yandex Link for Quick Share"
                           value={link}
                           onChange={(e) => setLink(e.target.value)}
                         />
                       </div>
                     </div>
-                    <div className="col-3">
+                    <div className="col-9 col-sm-3">
                       <button
                         id="downloadBtn"
                         onClick={() => {
