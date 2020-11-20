@@ -223,20 +223,18 @@ export default function Account() {
           <div className="card-header">
             <h1 className="text-center">Account Details</h1>
           </div>
+          <div className="text-center mt-3">
+            <h4 className="font-weight-normal">
+              Email: <small>{admin.email}</small>
+            </h4>
+            <h4 className="font-weight-normal">
+              Username: <small>{admin.username}</small>
+            </h4>
+          </div>
           <div className="card-body d-flex justify-content-center">
             <div style={{ width: "80%" }}>
               <div className="card">
-                <hr />
                 <div className="card-body">
-                  <h4 className="font-weight-normal">
-                    Email: <small>{admin.email}</small>
-                  </h4>
-                  {admin.username ? (
-                    <h4 className="font-weight-normal">
-                      Username: <small>{admin.username}</small>
-                    </h4>
-                  ) : null}
-                  <br />
                   <br />
                   <h3>Update Information</h3>
                   <br />
@@ -246,21 +244,20 @@ export default function Account() {
                       updateUsername();
                     }}
                   >
-                    <div className="form-group">
-                      <label>Username</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={updateInfo.username}
-                        onChange={(e) => {
-                          console.log(e.target.value);
-                          setUpdateInfo({
-                            ...updateInfo,
-                            username: e.target.value,
-                          });
-                        }}
-                      />
-                    </div>
+                    <label>Username</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={updateInfo.username}
+                      onChange={(e) => {
+                        console.log(e.target.value);
+                        setUpdateInfo({
+                          ...updateInfo,
+                          username: e.target.value,
+                        });
+                      }}
+                    />
+                    <br />
                     <button
                       type="submit"
                       className="btn btn-warning d-flex mx-auto px-5"
@@ -268,16 +265,7 @@ export default function Account() {
                       Update Username
                     </button>
                   </form>
-                  <hr
-                    style={{
-                      height: "1px",
-                      width: "75%",
-                      borderWidth: 0,
-                      color: "gray",
-                      backgroundColor: "gray",
-                    }}
-                    className="my-5"
-                  />
+                  <br />
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -335,19 +323,11 @@ export default function Account() {
                   </form>
                 </div>
               </div>
-              <hr
-                style={{
-                  height: "2px",
-                  width: "85%",
-                  borderWidth: 0,
-                  color: "gray",
-                  backgroundColor: "gray",
-                }}
-                className="my-5"
-              />
-              <div className="card">
-                <AddNewAdmin />
-              </div>
+              {admin && admin.role == "super" ? (
+                <div className="card mt-3 pt-5">
+                  <AddNewAdmin />
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="text-center card-footer text-muted">
