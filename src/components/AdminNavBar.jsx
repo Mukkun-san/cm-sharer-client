@@ -55,6 +55,20 @@ export default function AdminNavBar({ adminIsLoggedin }) {
               <li className="my-auto ml-4">
                 <Link
                   className="btn btn-link"
+                  to="/admin/dashboard/links/opendrive"
+                >
+                  <img src="https://img.icons8.com/ios-filled/26/ffffff/o.png" />
+                  <h5
+                    className="font-weight-normal text-white mt-1"
+                    style={{ fontSize: "1rem" }}
+                  >
+                    OpenDrive
+                  </h5>
+                </Link>
+              </li>
+              <li className="my-auto ml-4">
+                <Link
+                  className="btn btn-link"
                   to="/admin/dashboard/links/yandex"
                 >
                   <img src="https://img.icons8.com/windows/26/ffffff/yandex-international.png" />

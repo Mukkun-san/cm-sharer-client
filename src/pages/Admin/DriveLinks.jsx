@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { API_URL, ADMIN_TOKEN } from "../../../store/consts.js";
-import Loader from "../../../components/Loader";
-import { toastError, toastSuccess } from "../../../Helpers/toasts";
+import { API_URL, ADMIN_TOKEN } from "../../store/consts.js";
+import Loader from "../../components/Loader";
+import { toastError, toastSuccess } from "../../Helpers/toasts";
 import _debounce from "lodash/debounce";
 import moment from "moment";
 import prettyBytes from "pretty-bytes";

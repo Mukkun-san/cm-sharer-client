@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import GDriveFileDownload from "./pages/Main/GDriveFileDownload";
 import YandexFileDownload from "./pages/Main/YandexFileDownload";
+import OpenDriveFileDownload from "./pages/Main/OpenDriveFileDownload";
 import Home from "./pages/Main/Home";
 import Account from "./pages/Main/Account";
 import Contact from "./pages/Main/Contact";
@@ -14,13 +15,14 @@ import DMCA from "./pages/Main/DMCA";
 import Terms from "./pages/Main/Terms";
 import PrivacyPolicy from "./pages/Main/PrivacyPolicy";
 import NotFound from "./pages/NotFound/NotFound";
-import AdminDashboard from "./pages/Admin/Dashboard/Dashboard";
-import DashboardUsers from "./pages/Admin/Dashboard/Users";
-import DriveLinks from "./pages/Admin/Dashboard/DriveLinks";
-import YandexLinks from "./pages/Admin/Dashboard/YandexLinks";
-import AdminLogin from "./pages/Admin/Login/Login";
-import AdminAccount from "./pages/Admin/Pages/Account";
-import AddLinks from "./pages/Admin/Pages/AddLinks";
+import AdminDashboard from "./pages/Admin/Dashboard";
+import DashboardUsers from "./pages/Admin/Users";
+import DriveLinks from "./pages/Admin/DriveLinks";
+import YandexLinks from "./pages/Admin/YandexLinks";
+import OpendriveLinks from "./pages/Admin/OpendriveLinks";
+import AdminLogin from "./pages/Admin/Login";
+import AdminAccount from "./pages/Admin/Account";
+import AddLinks from "./pages/Admin/AddLinks";
 import Loader from "./components/Loader";
 import NavBar from "./components/NavBar";
 import AdminNavBar from "./components/AdminNavBar";
@@ -141,6 +143,14 @@ export default function App() {
                 <Redirect to={{ pathname: "/admin/login" }} />
               )}
             </Route>
+            <Route exact path="/admin/dashboard/links/opendrive">
+              <AdminNavBar adminIsLoggedin={adminIsLoggedin} />
+              {adminIsLoggedin ? (
+                <OpendriveLinks />
+              ) : (
+                <Redirect to={{ pathname: "/admin/login" }} />
+              )}
+            </Route>
             <Route exact path="/admin/add-links">
               <AdminNavBar adminIsLoggedin={adminIsLoggedin} />
               {adminIsLoggedin ? (
@@ -190,6 +200,9 @@ export default function App() {
             >
               <NavBar currentUser={user} />
               <YandexFileDownload />
+            </Route>
+            <Route exact path="/o/:slug">
+              <NavBar /> <OpenDriveFileDownload />
             </Route>
             <Route exact path="/page/privacy-policy">
               <NavBar currentUser={user} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { API_URL } from "../../../store/consts.js";
+import { API_URL } from "../../store/consts.js";
 import { Helmet } from "react-helmet";
 
 export default function Login() {

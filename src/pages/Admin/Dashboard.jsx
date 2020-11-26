@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DashboardCard, LinkLoader } from "./.jsx";
-import {
-  toastError,
-  toastWarning,
-  toastSuccess,
-} from "../../../Helpers/toasts";
+import { toastError, toastWarning, toastSuccess } from "../../Helpers/toasts";
 import axios from "axios";
-import { API_URL, ADMIN_TOKEN } from "../../../store/consts.js";
-import Loader from "../../../components/Loader";
+import { API_URL, ADMIN_TOKEN } from "../../store/consts.js";
+import Loader from "../../components/Loader";
 import scss from "./styles.module.scss";
 import { Helmet } from "react-helmet";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -46,6 +42,10 @@ export default function Dashboard() {
       "i"
     );
     const yandexLinkRegExp = new RegExp("https://yadi.sk/", "i");
+    const openDriveLinkRegExp = new RegExp(
+      "https://www.opendrive.com/file/",
+      "i"
+    );
     if (!link) {
       toastError("Enter a drive file link to generate");
     } else if (link.match(driveLinkRegExp)) {
@@ -105,8 +105,31 @@ export default function Dashboard() {
           toastError("Error occured");
           setloadingLinkGen(false);
         });
+    } else if (link.match(openDriveLinkRegExp)) {
+      setloadingLinkGen(true);
+      setLoadingMsg("Generating File Link");
+      axios
+        .post(
+          API_URL + "/links/add/opendrive",
+          {
+            fileId: link.trim().replace("https://www.opendrive.com/file/", ""),
+          },
+          { headers: { authorization: ADMIN_TOKEN } }
+        )
+        .then((result) => {
+          setloadingLinkGen(false);
+          if (result.data.slug) {
+            setGeneratedLink(window.location.origin + "/o/" + result.data.slug);
+          } else {
+            toastError("Error occured");
+          }
+        })
+        .catch((err) => {
+          setloadingLinkGen(false);
+          toastError("Error occured");
+        });
     } else {
-      toastError("Not a valid drive or yandex link");
+      toastError("Enter a valid google Drive, opendrive, or yandex link");
     }
   }
   return (
@@ -182,7 +205,7 @@ export default function Dashboard() {
                           className="form-control"
                           aria-label="Sizing example input"
                           aria-describedby="inputGroup-sizing-lg"
-                          placeholder="Enter Drive or Yandex Link for Quick Share"
+                          placeholder="Quick Generator"
                           value={link}
                           onChange={(e) => setLink(e.target.value)}
                         />
@@ -222,7 +245,10 @@ export default function Dashboard() {
                             >
                               <p className="btn p-0 m-0 d-flex align-content-center">
                                 <Icon className="mr-2 mt-2">content_copy</Icon>
-                                <b className="my-auto d-flex align-self-center text-center">
+                                <b
+                                  className="my-auto d-flex align-self-center text-center"
+                                  style={{ fontSize: "15px" }}
+                                >
                                   Copy Link
                                 </b>
                               </p>

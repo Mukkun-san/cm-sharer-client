@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { API_URL, ADMIN_TOKEN } from "../../../store/consts.js";
-import Loader from "../../../components/Loader";
-import { toastError, toastSuccess } from "../../../Helpers/toasts";
+import { API_URL, ADMIN_TOKEN } from "../../store/consts.js";
+import Loader from "../../components/Loader";
+import { toastError, toastSuccess } from "../../Helpers/toasts";
 import _debounce from "lodash/debounce";
 import moment from "moment";
 import prettyBytes from "pretty-bytes";
@@ -114,7 +114,7 @@ const useStyles2 = makeStyles({
 });
 //----------------------------------------------------------
 
-export default function YandexLinks() {
+export default function OpenDriveLinks() {
   const [links, setLinks] = useState(null);
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function YandexLinks() {
     axios
       .post(
         API_URL + "/links/search",
-        { type: "yandex", q: "" },
+        { type: "opendrive", q: "" },
         {
           headers: { authorization: ADMIN_TOKEN },
         }
@@ -186,7 +186,7 @@ export default function YandexLinks() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-black d-flex align-content-center"
-                  href={window.location.origin + "/y/" + link.slug}
+                  href={window.location.origin + "/o/" + link.slug}
                 >
                   <Icon className="mr-2">launch</Icon>
                   Open Link
@@ -196,7 +196,7 @@ export default function YandexLinks() {
               <br />
               <CopyToClipboard
                 className="btn p-0 m-0 mt-2"
-                text={window.location.origin + "/y/" + link.slug}
+                text={window.location.origin + "/o/" + link.slug}
               >
                 <p className="btn p-0 m-0">
                   <Icon className="mr-2 mt-2">content_copy</Icon>
@@ -275,7 +275,7 @@ export default function YandexLinks() {
               <TableRow>
                 <TableCell>#</TableCell>
                 <TableCell align="left">File Name</TableCell>
-                <TableCell align="left">Yandex Link</TableCell>
+                <TableCell align="left">Public Link</TableCell>
                 <TableCell align="left">Size</TableCell>
                 <TableCell align="left">Quality</TableCell>
                 <TableCell align="left">Downloads</TableCell>
@@ -300,9 +300,9 @@ export default function YandexLinks() {
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
-                      href={row.public_key}
+                      href={"https://www.opendrive.com/file/" + row.fileId}
                     >
-                      {row.public_key}
+                      {"https://www.opendrive.com/file/" + row.fileId}
                     </a>
                   </TableCell>
                   <TableCell align="left">
@@ -417,7 +417,7 @@ export default function YandexLinks() {
   return (
     <div>
       <Helmet>
-        <title>Dashboard - Links - Yandex</title>
+        <title>Dashboard - Links - OpenDrive</title>
       </Helmet>
       <br />
       <br />
