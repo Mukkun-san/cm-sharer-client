@@ -106,19 +106,9 @@ export default function App() {
   return (
     <Router>
       <ToastContainer />
-      {!(window.gapi && user) || adminIsLoggedin === null ? (
-        <div className="col d-flex justify-content-center">
-          <Loader color="warning" />
-        </div>
-      ) : (
-        <div
-          style={{
-            backgroundImage: 'url("./assets/1526027.jpg")',
-          }}
-        >
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-          <Switch>
+      <Switch>
+        {adminIsLoggedin ? (
+          <div>
             <Route exact path="/admin/dashboard/users">
               <AdminNavBar adminIsLoggedin={adminIsLoggedin} />
               {adminIsLoggedin ? (
@@ -186,6 +176,25 @@ export default function App() {
             <Route path="/admin/">
               <Redirect to={{ pathname: "/admin/login" }} />
             </Route>
+          </div>
+        ) : (
+          <div className="col d-flex justify-content-center">
+            <Loader color="warning" />
+          </div>
+        )}
+        {!(window.gapi && user) ? (
+          <div className="col d-flex justify-content-center">
+            <Loader color="warning" />
+          </div>
+        ) : (
+          <div
+            style={{
+              backgroundImage: 'url("./assets/1526027.jpg")',
+            }}
+          >
+            {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+
             <Route exact path="/d/:slug">
               <NavBar currentUser={user} />
               <GDriveFileDownload
@@ -239,9 +248,9 @@ export default function App() {
             <Route path="*">
               <NotFound />
             </Route>
-          </Switch>
-        </div>
-      )}
+          </div>
+        )}
+      </Switch>
     </Router>
   );
 }
