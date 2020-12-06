@@ -39,21 +39,6 @@ export default function YandexFileDownload() {
                 result1.data.public_key
             )
             .then(async (result) => {
-              // if (result.data.preview) {
-              //   var img = await fetch(
-              //     result.data.preview.replace("size=S", "size=L"),
-              //     { method: "GET" }
-              //   );
-              //   var string = "";
-              //   new Uint8Array(await img.arrayBuffer()).forEach((byte) => {
-              //     string += String.fromCharCode(byte);
-              //   });
-              //   string = btoa(string);
-              //   var base64preview = string;
-              // } else {
-              //   var base64preview = null;
-              // }
-
               return { ...result1.data, ...result.data };
             })
             .then((file) => {
@@ -111,6 +96,7 @@ export default function YandexFileDownload() {
                     {previewImgCompatible ? (
                       file.preview ? (
                         <img
+                          crossorigin="anonymous"
                           src={file.preview}
                           alt=""
                           className="card my-2 w-50 mx-auto"
