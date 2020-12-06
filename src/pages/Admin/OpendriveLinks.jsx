@@ -306,7 +306,7 @@ export default function OpenDriveLinks() {
                     </a>
                   </TableCell>
                   <TableCell align="left">
-                    {prettyBytes(Number(row.size) || 0)}
+                    {prettyBytes(Number(row.size) || 0, { binary: true })}
                   </TableCell>
                   <TableCell align="left">-</TableCell>
                   <TableCell align="left">{row.downloads}</TableCell>
