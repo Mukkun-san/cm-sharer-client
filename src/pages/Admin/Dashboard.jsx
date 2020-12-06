@@ -19,11 +19,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .post(
-        API_URL + "/stats/getall",
-        {},
-        { headers: { authorization: ADMIN_TOKEN } }
-      )
+      .get(API_URL + "/stats/getall", {
+        headers: { authorization: ADMIN_TOKEN },
+      })
       .then((result) => {
         setStats(result.data);
         setLoading(false);

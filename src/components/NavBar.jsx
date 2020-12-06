@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../store/consts.js";
+import { API_URL, ADMIN_TOKEN } from "../store/consts.js";
 
 export default function NavBar({ currentUser }) {
   function handleSignout() {
@@ -19,7 +19,9 @@ export default function NavBar({ currentUser }) {
           email: user.getBasicProfile().getEmail(),
           picture: user.getBasicProfile().getImageUrl(),
         };
-        await axios.post(API_URL + "/users/addOne", userdata);
+        await axios.post(API_URL + "/users/addOne", userdata, {
+          headers: { authorization: ADMIN_TOKEN },
+        });
         window.location.reload();
       })
       .catch((err) => {});

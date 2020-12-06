@@ -1,4 +1,4 @@
-const API_URL = "https://cmshare.herokuapp.com/api/v1"; // http://localhost:4545  // https://cmshare.herokuapp.com
+const API_URL = "http://localhost:4545/api/v1"; // http://localhost:4545  // https://cmshare.herokuapp.com
 
 const ADMIN_TOKEN = window.localStorage.getItem("adminToken");
 

@@ -115,7 +115,7 @@ export default function YandexFileDownload() {
                           alt=""
                           className="card my-2 w-50 mx-auto"
                           onLoad={(e) => {
-                            if (e.target.naturalHeight)
+                            if (!e.target.naturalHeight)
                               setPreviewImgCompatible(false);
                           }}
                           onError={(e) => {
