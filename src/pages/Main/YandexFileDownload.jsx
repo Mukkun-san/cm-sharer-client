@@ -12,6 +12,7 @@ export default function YandexFileDownload() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
   let [ddlWait, setDdlWait] = useState(3);
+  const [limitReached, setLimitReached] = useState(false);
 
   function download() {
     axios.post(API_URL + "/links/download", {
@@ -25,6 +26,8 @@ export default function YandexFileDownload() {
         : null,
     });
   }
+
+  console.log(file);
 
   useEffect(() => {
     axios
@@ -68,6 +71,8 @@ export default function YandexFileDownload() {
               }, 1000);
             })
             .catch((err) => {
+              setFile(result1.data);
+              setLimitReached(true);
               setLoading(false);
             });
         } else {
@@ -83,7 +88,7 @@ export default function YandexFileDownload() {
     <div>
       <div className="container bg-light w-100 h-100">
         <div className="row">
-          <div className="col-8 mx-auto">
+          <div className="col-11 mx-auto">
             <div className="card card-signin my-5">
               <div className="card-body">
                 {loading ? (
@@ -93,43 +98,58 @@ export default function YandexFileDownload() {
                 ) : file ? (
                   <div className="text-center">
                     <Helmet>
-                      <title>CM Sharer - {file.name}</title>
+                      <title>CM Sharer - {file.name || file.fileName}</title>
                     </Helmet>
-                    <h3>{file.name}</h3>
+                    <h3>{file.name || file.fileName}</h3>
                     <span className="badge badge-danger mx-2">
                       SIZE:{" "}
                       {prettyBytes(Number(file.size) || 0, { binary: true })}
                     </span>
                     <span className="badge badge-warning mx-2">
-                      TYPE: {file.media_type}
+                      TYPE: {file.media_type || file.fileType}
                     </span>
                     <br />
-                    {/* {file.preview ? (
+                    {file.preview ? (
                       <img
                         src={file.preview}
                         alt="preview_image"
-                        className="my-2 w-75 mx-auto"
+                        className="card my-2 w-50 mx-auto"
+                        onLoad={(e) => {
+                          console.log("finished loading img");
+                        }}
+                        onError={(e) => {
+                          console.log("error", e);
+                        }}
                       />
-                    ) : null} */}
+                    ) : null}
                     <br />
                     <hr />
-                    <a
-                      href={file.file}
-                      target="_self"
-                      type="button"
-                      rel="noreferrer"
-                    >
+                    {limitReached ? (
                       <button
-                        className="btn btn-lg btn-warning my-0"
-                        disabled={ddlWait > 0 ? true : false}
-                        type="button"
-                        onClick={download}
+                        className="btn btn-warning disabled"
+                        disabled={true}
                       >
-                        {ddlWait > 0
-                          ? `Please wait ${ddlWait} secs...`
-                          : "Download"}
+                        Download is currently unavailable.
                       </button>
-                    </a>
+                    ) : (
+                      <a
+                        href={file.file}
+                        target="_self"
+                        type="button"
+                        rel="noreferrer"
+                      >
+                        <button
+                          className="btn btn-lg btn-warning my-0"
+                          disabled={ddlWait > 0 ? true : false}
+                          type="button"
+                          onClick={download}
+                        >
+                          {ddlWait > 0
+                            ? `Please wait ${ddlWait} secs...`
+                            : "Download"}
+                        </button>
+                      </a>
+                    )}
                   </div>
                 ) : (
                   <NotFound />
