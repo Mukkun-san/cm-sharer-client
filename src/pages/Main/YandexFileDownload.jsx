@@ -13,6 +13,7 @@ export default function YandexFileDownload() {
   const [loading, setLoading] = useState(true);
   let [ddlWait, setDdlWait] = useState(3);
   const [limitReached, setLimitReached] = useState(false);
+  const [previewImgCompatible, setPreviewImgCompatible] = useState(true);
 
   function download() {
     axios.post(API_URL + "/links/download", {
@@ -26,8 +27,6 @@ export default function YandexFileDownload() {
         : null,
     });
   }
-
-  console.log(file);
 
   useEffect(() => {
     axios
@@ -109,19 +108,34 @@ export default function YandexFileDownload() {
                       TYPE: {file.media_type || file.fileType}
                     </span>
                     <br />
-                    {file.preview ? (
+                    {previewImgCompatible ? (
+                      file.preview ? (
+                        <img
+                          src={file.preview}
+                          alt=""
+                          className="card my-2 w-50 mx-auto"
+                          onLoad={(e) => {
+                            if (e.target.naturalHeight)
+                              setPreviewImgCompatible(false);
+                          }}
+                          onError={(e) => {
+                            console.log("error", e);
+                          }}
+                        />
+                      ) : (
+                        <img
+                          src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/movie-alt2-512.png"
+                          alt=""
+                          className="w-25"
+                        />
+                      )
+                    ) : (
                       <img
-                        src={file.preview}
-                        alt="preview_image"
-                        className="card my-2 w-50 mx-auto"
-                        onLoad={(e) => {
-                          console.log("finished loading img");
-                        }}
-                        onError={(e) => {
-                          console.log("error", e);
-                        }}
+                        src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/movie-alt2-512.png"
+                        alt=""
+                        className="w-25"
                       />
-                    ) : null}
+                    )}
                     <br />
                     <hr />
                     {limitReached ? (
