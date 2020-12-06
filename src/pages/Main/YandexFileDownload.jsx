@@ -96,7 +96,7 @@ export default function YandexFileDownload() {
                     {previewImgCompatible ? (
                       file.preview ? (
                         <img
-                          crossorigin="anonymous"
+                          crossOrigin="anonymous"
                           src={file.preview}
                           alt=""
                           className="card my-2 w-50 mx-auto"
