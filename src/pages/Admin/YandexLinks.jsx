@@ -117,6 +117,7 @@ const useStyles2 = makeStyles({
 export default function YandexLinks() {
   const [links, setLinks] = useState(null);
 
+  console.log(links);
   useEffect(() => {
     fetchAllLinks();
   }, []);
@@ -277,7 +278,6 @@ export default function YandexLinks() {
                 <TableCell align="left">File Name</TableCell>
                 <TableCell align="left">Yandex Link</TableCell>
                 <TableCell align="left">Size</TableCell>
-                <TableCell align="left">Quality</TableCell>
                 <TableCell align="left">Downloads</TableCell>
                 <TableCell align="left">Added On</TableCell>
                 <TableCell align="right"></TableCell>
@@ -306,9 +306,8 @@ export default function YandexLinks() {
                     </a>
                   </TableCell>
                   <TableCell align="left">
-                    {prettyBytes(Number(row.size) || 0)}
+                    {prettyBytes(Number(row.size) || 0, { binary: true })}
                   </TableCell>
-                  <TableCell align="left">-</TableCell>
                   <TableCell align="left">{row.downloads}</TableCell>
                   <TableCell align="center">
                     <pre>

@@ -233,7 +233,8 @@ export default function GDriveFileDownload({ user, handleAuthClick }) {
                       {file.name}
                     </h3>
                     <span className="badge badge-danger mx-2">
-                      Size: {prettyBytes(Number(file.size) || 0)}
+                      Size:{" "}
+                      {prettyBytes(Number(file.size) || 0, { binary: true })}
                     </span>
                     <span className="badge badge-warning">
                       Type: {file.mimeType}

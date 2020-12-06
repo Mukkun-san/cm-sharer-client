@@ -37,6 +37,18 @@ export default function OpenDriveFileDownload() {
         setFile(false);
       });
   }, [slug]);
+
+  function download() {
+    axios.post(API_URL + "/links/download", {
+      ...file,
+      userId: window.gapi.auth2
+        .getAuthInstance()
+        .currentUser.get()
+        .getBasicProfile()
+        .getId(),
+    });
+  }
+
   return (
     <div>
       <div className="container bg-light w-100 h-100">
@@ -66,7 +78,8 @@ export default function OpenDriveFileDownload() {
                     <br />
                     <h3>{file.fileName}</h3>
                     <span className="badge badge-danger mx-2">
-                      SIZE: {prettyBytes(Number(file.size) || 0)}
+                      SIZE:{" "}
+                      {prettyBytes(Number(file.size) || 0, { binary: true })}
                     </span>
                     <span className="badge badge-warning mx-2">
                       TYPE: {file.fileType}
@@ -84,6 +97,7 @@ export default function OpenDriveFileDownload() {
                         className="btn btn-lg btn-warning my-0"
                         disabled={ddlWait > 0 ? true : false}
                         type="button"
+                        onClick={download}
                       >
                         {ddlWait > 0
                           ? `Please wait ${ddlWait} secs...`

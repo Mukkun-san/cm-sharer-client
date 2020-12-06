@@ -13,15 +13,28 @@ export default function YandexFileDownload() {
   const [loading, setLoading] = useState(true);
   let [ddlWait, setDdlWait] = useState(3);
 
+  function download() {
+    axios.post(API_URL + "/links/download", {
+      ...file,
+      userId: window.gapi.auth2.getAuthInstance().currentUser.get()
+        ? window.gapi.auth2
+            .getAuthInstance()
+            .currentUser.get()
+            .getBasicProfile()
+            .getId()
+        : null,
+    });
+  }
+
   useEffect(() => {
     axios
       .get(API_URL + "/links/yandex/" + slug)
-      .then((result) => {
-        if (result.data.linkExists) {
+      .then((result1) => {
+        if (result1.data.linkExists) {
           axios
             .get(
               "https://cloud-api.yandex.net/v1/disk/public/resources?preview_size=XL&public_key=" +
-                result.data.public_key
+                result1.data.public_key
             )
             .then(async (result) => {
               // if (result.data.preview) {
@@ -39,7 +52,7 @@ export default function YandexFileDownload() {
               //   var base64preview = null;
               // }
 
-              return { ...result.data };
+              return { ...result1.data, ...result.data };
             })
             .then((file) => {
               console.log(file);
@@ -84,7 +97,8 @@ export default function YandexFileDownload() {
                     </Helmet>
                     <h3>{file.name}</h3>
                     <span className="badge badge-danger mx-2">
-                      SIZE: {prettyBytes(Number(file.size) || 0)}
+                      SIZE:{" "}
+                      {prettyBytes(Number(file.size) || 0, { binary: true })}
                     </span>
                     <span className="badge badge-warning mx-2">
                       TYPE: {file.media_type}
@@ -109,6 +123,7 @@ export default function YandexFileDownload() {
                         className="btn btn-lg btn-warning my-0"
                         disabled={ddlWait > 0 ? true : false}
                         type="button"
+                        onClick={download}
                       >
                         {ddlWait > 0
                           ? `Please wait ${ddlWait} secs...`
