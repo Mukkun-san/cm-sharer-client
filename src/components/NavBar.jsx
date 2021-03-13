@@ -6,7 +6,7 @@ import { API_URL, ADMIN_TOKEN } from "../store/consts.js";
 export default function NavBar({ currentUser }) {
   function handleSignout() {
     window.gapi.auth2.getAuthInstance().signOut();
-    window.location.reload();
+    //window.location.reload();
   }
   function handleAuthClick() {
     window.gapi.auth2
