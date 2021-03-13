@@ -4,9 +4,8 @@ const ADMIN_TOKEN = window.localStorage.getItem("adminToken");
 
 const DRIVE_FOLDER_NAME = "CM Sharer";
 
-const CLIENT_ID =
-    "495651948250-5rqpcankels7bu4bvdi7e74c536a5322.apps.googleusercontent.com";
-const API_KEY = "AIzaSyAcvLqHI3gPttBVttWjmbH6mU56y3aqTcA";
+const CLIENT_ID = "600641611458-n9vn0ido82l4pf9i8eomg6atis1batq5.apps.googleusercontent.com";
+const API_KEY = "AIzaSyDURzWoWCnSa5Mj5ED0o_4tCrIQGsaybow";
 const DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
 ];
