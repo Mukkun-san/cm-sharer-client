@@ -174,14 +174,19 @@ export default function Users() {
                         {admin.addedOn.toString().substring(11, 16)}
                       </td>
                       <td className="bg-light">
-                        <button
-                          value={admin._id}
-                          type="button"
-                          className="btn btn-sm ml-2 btn-danger"
-                          onClick={(e) => removeAdmin(e.target.value)}
-                        >
-                          Delete
-                        </button>
+                        {admin.role === "super" &&
+                        window.localStorage.getItem("admin") === admin.email ? (
+                          ""
+                        ) : (
+                          <button
+                            value={admin._id}
+                            type="button"
+                            className="btn btn-sm ml-2 btn-danger"
+                            onClick={(e) => removeAdmin(e.target.value)}
+                          >
+                            Delete
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
