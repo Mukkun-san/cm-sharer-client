@@ -4,8 +4,8 @@ import { API_URL } from "../../store/consts.js";
 import { Helmet } from "react-helmet";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("cmsharer@gmail.com");
+  const [password, setPassword] = useState("cmsharer@gmail.com");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
