@@ -34,6 +34,7 @@ export default function NavBar({ currentUser }) {
         <Link className="navbar-brand" to="/">
           <h2>CM Sharer</h2>
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -99,6 +100,17 @@ export default function NavBar({ currentUser }) {
                 </button>
               </div>
             )}
+            <div>
+              <i className="mr-5"></i>
+              <a href="/admin">
+                <button
+                  className="btn btn-sm btn-outline-warning ml-2 px-3 py-2 active"
+                  type="button"
+                >
+                  ADMIN DASHBOARD
+                </button>
+              </a>
+            </div>
             <i className="mr-5"></i>
           </ul>
         </div>
