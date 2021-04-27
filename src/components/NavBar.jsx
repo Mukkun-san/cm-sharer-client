@@ -100,7 +100,7 @@ export default function NavBar({ currentUser }) {
                 </button>
               </div>
             )}
-            <div>
+            {/* <div>
               <i className="mr-5"></i>
               <a href="/admin">
                 <button
@@ -110,7 +110,7 @@ export default function NavBar({ currentUser }) {
                   ADMIN DASHBOARD
                 </button>
               </a>
-            </div>
+            </div> */}
             <i className="mr-5"></i>
           </ul>
         </div>
