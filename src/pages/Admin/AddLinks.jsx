@@ -44,7 +44,7 @@ export default function AddLinks() {
             let addfile = await axios.post(
               API_URL + "/links/add/drive",
               getfile.result,
-              { headers: { authorization: ADMIN_TOKEN } }
+              { headers: { authorization: ADMIN_TOKEN() } }
             );
             if (addfile.data.slug) {
               setMessage(
@@ -97,7 +97,7 @@ export default function AddLinks() {
               let addfile = await axios.post(
                 API_URL + "/links/add/drive",
                 getfile.result,
-                { headers: { authorization: ADMIN_TOKEN } }
+                { headers: { authorization: ADMIN_TOKEN() } }
               );
               if (addfile.data) {
                 allLinks[idx] = {
@@ -335,7 +335,7 @@ export default function AddLinks() {
         .post(
           API_URL + "/links/add/yandex",
           { public_key: link.trim() },
-          { headers: { authorization: ADMIN_TOKEN } }
+          { headers: { authorization: ADMIN_TOKEN() } }
         )
         .then((result) => {
           console.log(result);
@@ -369,7 +369,7 @@ export default function AddLinks() {
           .post(
             API_URL + "/links/add/yandex",
             { public_key: link.trim() },
-            { headers: { authorization: ADMIN_TOKEN } }
+            { headers: { authorization: ADMIN_TOKEN() } }
           )
           .then((result) => {
             if (result.data) {
@@ -580,7 +580,7 @@ export default function AddLinks() {
                 .trim()
                 .replace("https://www.opendrive.com/file/", ""),
             },
-            { headers: { authorization: ADMIN_TOKEN } }
+            { headers: { authorization: ADMIN_TOKEN() } }
           )
           .then((result) => {
             console.log(result);
@@ -628,7 +628,7 @@ export default function AddLinks() {
                     ""
                   ),
               },
-              { headers: { authorization: ADMIN_TOKEN } }
+              { headers: { authorization: ADMIN_TOKEN() } }
             )
             .then((result) => {
               if (result.data) {

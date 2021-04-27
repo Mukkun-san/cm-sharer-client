@@ -68,7 +68,7 @@ export default function App() {
           picture: user.getBasicProfile().getImageUrl(),
         };
         await axios.post(API_URL + "/users/addOne", userdata, {
-          headers: { authorization: ADMIN_TOKEN },
+          headers: { authorization: ADMIN_TOKEN() },
         });
         window.location.reload();
       })
@@ -94,7 +94,7 @@ export default function App() {
     let res = await axios.post(
       API_URL + "/admin/authorize",
       {},
-      { headers: { authorization: ADMIN_TOKEN } }
+      { headers: { authorization: ADMIN_TOKEN() } }
     );
     if (res.data && res.data.authorized) {
       setAdminIsLoggedin(true);

@@ -20,7 +20,7 @@ export default function NavBar({ currentUser }) {
           picture: user.getBasicProfile().getImageUrl(),
         };
         await axios.post(API_URL + "/users/addOne", userdata, {
-          headers: { authorization: ADMIN_TOKEN },
+          headers: { authorization: ADMIN_TOKEN() },
         });
         window.location.reload();
       })

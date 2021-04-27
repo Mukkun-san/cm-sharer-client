@@ -127,7 +127,7 @@ export default function OpenDriveLinks() {
         API_URL + "/links/search",
         { type: "opendrive", q: "" },
         {
-          headers: { authorization: ADMIN_TOKEN },
+          headers: { authorization: ADMIN_TOKEN() },
         }
       )
       .then((res) => {
@@ -150,7 +150,7 @@ export default function OpenDriveLinks() {
         setDeleting(true);
         axios
           .delete(API_URL + "/links/" + link._id, {
-            headers: { authorization: ADMIN_TOKEN },
+            headers: { authorization: ADMIN_TOKEN() },
           })
           .then((result) => {
             toastSuccess("Link was successfully removed");
@@ -364,7 +364,7 @@ export default function OpenDriveLinks() {
           API_URL + "/links/search",
           { type: "yandex", q: query },
           {
-            headers: { authorization: ADMIN_TOKEN },
+            headers: { authorization: ADMIN_TOKEN() },
           }
         )
         .then((result) => {

@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, ADMIN_TOKEN } from "../../store/consts";
 import Loader from "../../components/Loader";
-import {
-  toastError,
-  toastWarning,
-  toastSuccess,
-} from "../../Helpers/toasts";
+import { toastError, toastWarning, toastSuccess } from "../../Helpers/toasts";
 import { Helmet } from "react-helmet";
 
 export default function Account() {
@@ -27,7 +23,7 @@ export default function Account() {
       .post(
         API_URL + "/admin/getProfile",
         { email: admin.email },
-        { headers: { authorization: ADMIN_TOKEN } }
+        { headers: { authorization: ADMIN_TOKEN() } }
       )
       .then((res) => {
         setAdmin(res.data);
@@ -42,7 +38,7 @@ export default function Account() {
         email: admin.email,
         username: updateInfo.username,
       },
-      { headers: { authorization: ADMIN_TOKEN } }
+      { headers: { authorization: ADMIN_TOKEN() } }
     );
     console.log(res);
     if (res.data === "OK") {
@@ -68,7 +64,7 @@ export default function Account() {
             oldPassw: updateInfo.oldPassw,
             newPassw: updateInfo.newPassw,
           },
-          { headers: { authorization: ADMIN_TOKEN } }
+          { headers: { authorization: ADMIN_TOKEN() } }
         )
         .then((res) => {
           if (res.data.error) {
@@ -148,7 +144,7 @@ export default function Account() {
               email,
               password: pass1,
             },
-            { headers: { authorization: ADMIN_TOKEN } }
+            { headers: { authorization: ADMIN_TOKEN() } }
           );
           alert(res.data.message);
         } catch (error) {

@@ -13,7 +13,7 @@ export default function Users() {
   useEffect(() => {
     axios
       .get(API_URL + "/users/all", {
-        headers: { authorization: ADMIN_TOKEN },
+        headers: { authorization: ADMIN_TOKEN() },
       })
       .then((res) => {
         setUsers(res.data.users);
@@ -21,7 +21,7 @@ export default function Users() {
       .catch((err) => {});
     axios
       .get(API_URL + "/admin/all", {
-        headers: { authorization: ADMIN_TOKEN },
+        headers: { authorization: ADMIN_TOKEN() },
       })
       .then((res) => {
         setAdmins(res.data.admins);
@@ -32,7 +32,7 @@ export default function Users() {
   function removeUser(_id) {
     axios
       .delete(API_URL + "/users/" + _id, {
-        headers: { authorization: ADMIN_TOKEN },
+        headers: { authorization: ADMIN_TOKEN() },
       })
       .then((result) => {
         setUsers(users.filter((user) => user._id !== _id));
@@ -45,7 +45,7 @@ export default function Users() {
   function removeAdmin(_id) {
     axios
       .delete(API_URL + "/admin/" + _id, {
-        headers: { authorization: ADMIN_TOKEN },
+        headers: { authorization: ADMIN_TOKEN() },
       })
       .then((result) => {
         setAdmins(admins.filter((admin) => admin._id !== _id));

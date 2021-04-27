@@ -20,7 +20,7 @@ export default function Dashboard() {
   useEffect(() => {
     axios
       .get(API_URL + "/stats/getall", {
-        headers: { authorization: ADMIN_TOKEN },
+        headers: { authorization: ADMIN_TOKEN() },
       })
       .then((result) => {
         setStats(result.data);
@@ -62,7 +62,7 @@ export default function Dashboard() {
             let addfile = await axios.post(
               API_URL + "/links/add/drive",
               getfile.result,
-              { headers: { authorization: ADMIN_TOKEN } }
+              { headers: { authorization: ADMIN_TOKEN() } }
             );
             if (addfile.data.slug) {
               setGeneratedLink(
@@ -89,7 +89,7 @@ export default function Dashboard() {
         .post(
           API_URL + "/links/add/yandex",
           { public_key: link.trim() },
-          { headers: { authorization: ADMIN_TOKEN } }
+          { headers: { authorization: ADMIN_TOKEN() } }
         )
         .then((result) => {
           if (result.data.slug) {
@@ -112,7 +112,7 @@ export default function Dashboard() {
           {
             fileId: link.trim().replace("https://www.opendrive.com/file/", ""),
           },
-          { headers: { authorization: ADMIN_TOKEN } }
+          { headers: { authorization: ADMIN_TOKEN() } }
         )
         .then((result) => {
           setloadingLinkGen(false);
