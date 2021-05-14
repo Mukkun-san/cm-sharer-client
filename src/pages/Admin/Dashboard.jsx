@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DashboardCard, LinkLoader } from "./.jsx";
-import { toastError, toastWarning, toastSuccess } from "../../Helpers/toasts";
+import { toastError, toastWarning } from "../../Helpers/toasts";
 import axios from "axios";
 import { API_URL, ADMIN_TOKEN } from "../../store/consts.js";
 import Loader from "../../components/Loader";
@@ -44,8 +44,10 @@ export default function Dashboard() {
       "https://www.opendrive.com/file/",
       "i"
     );
+    const streamTapeLink = "https://streamtape.com/v/";
+    const streamtapeLinkRegExp = new RegExp(streamTapeLink, "i");
     if (!link) {
-      toastError("Enter a drive file link to generate");
+      toastError("Enter a link to generate");
     } else if (link.match(driveLinkRegExp)) {
       let part1 = link.replace(driveLinkRegExp, "");
       const fileId = part1.substring(0, part1.indexOf("/"));
@@ -105,7 +107,7 @@ export default function Dashboard() {
         });
     } else if (link.match(openDriveLinkRegExp)) {
       setloadingLinkGen(true);
-      setLoadingMsg("Generating File Link");
+      setLoadingMsg("Generating OpenDrive Link");
       axios
         .post(
           API_URL + "/links/add/opendrive",
@@ -118,6 +120,34 @@ export default function Dashboard() {
           setloadingLinkGen(false);
           if (result.data.slug) {
             setGeneratedLink(window.location.origin + "/o/" + result.data.slug);
+          } else {
+            toastError("Error occured");
+          }
+        })
+        .catch((err) => {
+          setloadingLinkGen(false);
+          toastError("Error occured");
+        });
+    } else if (link.match(streamtapeLinkRegExp)) {
+      let fileId = link.match(new RegExp("(?<=/v/)(.*?)(?=/)"))[0];
+      setloadingLinkGen(true);
+      setLoadingMsg("Generating Streamtape Link");
+      axios
+        .post(
+          API_URL + "/links/generate/streamtape",
+          {
+            fileId,
+          },
+          { headers: { authorization: ADMIN_TOKEN() } }
+        )
+        .then((result) => {
+          console.log(result);
+          setloadingLinkGen(false);
+          console.log(result.data);
+          if (result.data.slug) {
+            setGeneratedLink(
+              window.location.origin + "/st/" + result.data.slug
+            );
           } else {
             toastError("Error occured");
           }

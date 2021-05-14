@@ -8,6 +8,7 @@ import {
 import GDriveFileDownload from "./pages/Main/GDriveFileDownload";
 import YandexFileDownload from "./pages/Main/YandexFileDownload";
 import OpenDriveFileDownload from "./pages/Main/OpenDriveFileDownload";
+import StreamtapeFileDownload from "./pages/Main/StreamtapeFileDownload";
 import Home from "./pages/Main/Home";
 import Account from "./pages/Main/Account";
 import Contact from "./pages/Main/Contact";
@@ -20,6 +21,7 @@ import DashboardUsers from "./pages/Admin/Users";
 import DriveLinks from "./pages/Admin/DriveLinks";
 import YandexLinks from "./pages/Admin/YandexLinks";
 import OpendriveLinks from "./pages/Admin/OpendriveLinks";
+import StreamtapeLinks from "./pages/Admin/StreamtapeLinks";
 import AdminLogin from "./pages/Admin/Login";
 import AdminAccount from "./pages/Admin/Account";
 import AddLinks from "./pages/Admin/AddLinks";
@@ -86,7 +88,6 @@ export default function App() {
     script.onload = handleClientLoad;
     script.src = "https://apis.google.com/js/api.js";
     document.body.appendChild(script);
-
     adminAuth();
   });
 
@@ -137,6 +138,14 @@ export default function App() {
               <AdminNavBar adminIsLoggedin={adminIsLoggedin} />
               {adminIsLoggedin ? (
                 <YandexLinks />
+              ) : (
+                <Redirect to={{ pathname: "/admin/login" }} />
+              )}
+            </Route>
+            <Route exact path="/admin/dashboard/links/streamtape">
+              <AdminNavBar adminIsLoggedin={adminIsLoggedin} />
+              {adminIsLoggedin ? (
+                <StreamtapeLinks />
               ) : (
                 <Redirect to={{ pathname: "/admin/login" }} />
               )}
@@ -192,16 +201,15 @@ export default function App() {
                 handleAuthClick={handleAuthClick}
               />
             </Route>
-            <Route
-              exact
-              path="/y/:slug"
-              onEnter={() => console.log("Entered /")}
-            >
+            <Route exact path="/y/:slug">
               <NavBar currentUser={user} />
               <YandexFileDownload />
             </Route>
             <Route exact path="/o/:slug">
               <NavBar /> <OpenDriveFileDownload />
+            </Route>
+            <Route exact path="/st/:slug">
+              <NavBar /> <StreamtapeFileDownload />
             </Route>
             <Route exact path="/page/privacy-policy">
               <NavBar currentUser={user} />

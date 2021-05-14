@@ -114,7 +114,7 @@ const useStyles2 = makeStyles({
 });
 //----------------------------------------------------------
 
-export default function OpenDriveLinks() {
+export default function StreamtapeLinks() {
   const [links, setLinks] = useState(null);
 
   useEffect(() => {
@@ -124,8 +124,8 @@ export default function OpenDriveLinks() {
   function fetchAllLinks() {
     axios
       .post(
-        API_URL + "/links/search",
-        { type: "opendrive", q: "" },
+        API_URL + "/links/search/streamtape",
+        { query: "" },
         {
           headers: { authorization: ADMIN_TOKEN() },
         }
@@ -186,7 +186,7 @@ export default function OpenDriveLinks() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-black d-flex align-content-center"
-                  href={window.location.origin + "/o/" + link.slug}
+                  href={window.location.origin + "/st/" + link.slug}
                 >
                   <Icon className="mr-2">launch</Icon>
                   Open Link
@@ -196,7 +196,7 @@ export default function OpenDriveLinks() {
               <br />
               <CopyToClipboard
                 className="btn p-0 m-0 mt-2"
-                text={window.location.origin + "/o/" + link.slug}
+                text={window.location.origin + "/st/" + link.slug}
               >
                 <p className="btn p-0 m-0">
                   <Icon className="mr-2 mt-2">content_copy</Icon>
@@ -275,7 +275,7 @@ export default function OpenDriveLinks() {
               <TableRow>
                 <TableCell>#</TableCell>
                 <TableCell align="left">File Name</TableCell>
-                <TableCell align="left">Public Link</TableCell>
+                {/* <TableCell align="left">Public Link</TableCell> */}
                 <TableCell align="left">Size</TableCell>
                 <TableCell align="left">Quality</TableCell>
                 <TableCell align="left">Downloads</TableCell>
@@ -295,8 +295,8 @@ export default function OpenDriveLinks() {
                   <TableCell component="th" scope="row">
                     {i + 1}
                   </TableCell>
-                  <TableCell align="left">{row.fileName}</TableCell>
-                  <TableCell align="left">
+                  <TableCell align="left">{row.name}</TableCell>
+                  {/* <TableCell align="left">
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -304,7 +304,7 @@ export default function OpenDriveLinks() {
                     >
                       {"https://www.opendrive.com/file/" + row.fileId}
                     </a>
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell align="left">
                     {prettyBytes(Number(row.size) || 0, { binary: true })}
                   </TableCell>
@@ -361,8 +361,8 @@ export default function OpenDriveLinks() {
     const sendQuery = (query) => {
       axios
         .post(
-          API_URL + "/links/search",
-          { type: "opendrive", q: query },
+          API_URL + "/links/search/streamtape",
+          { query },
           {
             headers: { authorization: ADMIN_TOKEN() },
           }

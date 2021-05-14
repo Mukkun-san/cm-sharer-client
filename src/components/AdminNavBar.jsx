@@ -81,6 +81,24 @@ export default function AdminNavBar({ adminIsLoggedin }) {
                 </Link>
               </li>
               <li className="my-auto ml-4">
+                <Link
+                  className="btn btn-link"
+                  to="/admin/dashboard/links/streamtape"
+                >
+                  <img
+                    src={require("../assets/Logo_streamtape_white.png")}
+                    alt=""
+                    style={{ width: "32px" }}
+                  />
+                  <h5
+                    className="font-weight-normal text-white mt-1"
+                    style={{ fontSize: "1rem" }}
+                  >
+                    StreamTape
+                  </h5>
+                </Link>
+              </li>
+              <li className="my-auto ml-4">
                 <Link className="btn btn-link" to="/admin/add-links">
                   <img src="https://img.icons8.com/fluent-systems-filled/26/ffffff/link.png" />
                   <h5
